@@ -1,7 +1,6 @@
 /**
- * FoodLoop AI (Anna — Anna He Parabrahma) - Backend Server
- * ========================================================
- * Main Node.js & Express application entry point.
+ * ANNA - Anna He Purna Brahma
+ * Backend Server
  */
 
 const express = require("express");
@@ -9,6 +8,7 @@ const cors = require("cors");
 require("dotenv").config();
 
 const demandRoutes = require("./routes/demandRoutes");
+const rescueRoutes = require("./routes/rescueRoutes");
 
 const app = express();
 
@@ -16,20 +16,23 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Health check endpoint
+// Health check
 app.get("/api/health", (req, res) => {
     res.json({
         success: true,
-        project: "FoodLoop AI (Anna)",
-        message: "FoodLoop AI backend is running cleanly!",
+        project: "ANNA",
+        message: "ANNA backend is running successfully!",
         timestamp: new Date().toISOString()
     });
 });
 
-// Demand prediction API routes
+// AI Demand Prediction API
 app.use("/api/demand", demandRoutes);
 
-// 404 Handler for undefined routes
+// Surplus Food and NGO API
+app.use("/api/rescue", rescueRoutes);
+
+// 404 Handler
 app.use((req, res) => {
     res.status(404).json({
         success: false,
@@ -40,6 +43,7 @@ app.use((req, res) => {
 // Global error handler
 app.use((err, req, res, next) => {
     console.error("[SERVER ERROR]", err);
+
     res.status(500).json({
         success: false,
         error: "Internal server error occurred."
@@ -50,13 +54,14 @@ const PORT = process.env.PORT || 5000;
 
 if (require.main === module) {
     app.listen(PORT, () => {
-        console.log(`====================================================`);
-        console.log(` FoodLoop AI backend running on http://localhost:${PORT}`);
-        console.log(` Demand API available at: http://localhost:${PORT}/api/demand`);
-        console.log(` Health check: http://localhost:${PORT}/api/health`);
-        console.log(`====================================================`);
+        console.log("============================================");
+        console.log(" ANNA Backend Running");
+        console.log(` Server: http://localhost:${PORT}`);
+        console.log(` Health: http://localhost:${PORT}/api/health`);
+        console.log(` Demand: http://localhost:${PORT}/api/demand`);
+        console.log(` Rescue: http://localhost:${PORT}/api/rescue`);
+        console.log("============================================");
     });
 }
 
 module.exports = app;
-

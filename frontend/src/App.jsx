@@ -1,88 +1,57 @@
-import './App.css'
+
+import './App.css';
+import { Routes, Route } from 'react-router-dom';
+
+import Navbar from './components/Navbar';
+
+import Home from './pages/Home';
+import OrderFood from './pages/OrderFood';
+import RestaurantDetails from './pages/RestaurantDetails';
+import RescueFood from './pages/RescueFood';
+import About from './pages/About';
+import Checkout from './pages/Checkout';
 
 function App() {
-  return (
-    <div className="app">
-      <nav className="navbar">
-        <div className="logo">
-          🌿 ANNA
-          <span>Anna He Purna Brahma</span>
-        </div>
+    return (
+        <>
+            <Navbar />
 
-        <div className="nav-links">
-          <a href="/">Home</a>
-          <a href="#order">Order Food</a>
-          <a href="#rescue">Rescue Food</a>
-          <a href="#about">About</a>
-        </div>
+            <Routes>
 
-        <button className="login-btn">Sign In</button>
-      </nav>
+                {/* Home Page */}
+                <Route path="/" element={<Home />} />
 
-      <section className="hero">
-        <div className="hero-content">
-          <span className="tagline">AI POWERED FOOD PLATFORM</span>
+                {/* Food Ordering */}
+                <Route path="/order" element={<OrderFood />} />
 
-          <h1>
-            Good Food.
-            <br />
-            <span>Brighter Tomorrows.</span>
-          </h1>
+                {/* Individual Restaurant Menu */}
+                <Route
+                    path="/restaurant/:id"
+                    element={<RestaurantDetails />}
+                />
 
-          <p>
-            Order delicious meals, rescue surplus food and help
-            build a world where no food goes to waste.
-          </p>
+                {/* Food Rescue */}
+                <Route path="/rescue" element={<RescueFood />} />
 
-          <div className="hero-buttons">
-            <button className="order-btn">Order Food</button>
-            <button className="rescue-btn">Rescue Food</button>
-          </div>
+                {/* Common Cart and Checkout Dashboard */}
+                <Route path="/checkout" element={<Checkout />} />
 
-          <p className="hero-note">
-            Good Food • No Waste • Happier People
-          </p>
-        </div>
+                {/* About Page */}
+                <Route path="/about" element={<About />} />
 
-        <div className="hero-image">
-          <img
-  src="/anna-food.png"
-  alt="Traditional Indian food platter"
-  className="hero-food-image"
-/>
-        </div>
-      </section>
+                {/* Invalid URL */}
+                <Route
+                    path="*"
+                    element={
+                        <h2 style={{ textAlign: "center", margin: "50px" }}>
+                            404 - Page Not Found
+                        </h2>
+                    }
+                />
 
-      <section className="features" id="about">
-        <div>
-          <h2>🍽️ Order Food</h2>
-          <p>Freshly prepared meals from your favourite restaurants.</p>
-        </div>
-
-        <div>
-          <h2>🌱 Rescue Food</h2>
-          <p>Discover quality surplus food at special prices.</p>
-        </div>
-
-        <div>
-          <h2>🤖 AI Powered</h2>
-          <p>Smart demand prediction to prevent food waste.</p>
-        </div>
-      </section>
-
-      <section className="impact">
-        <h2>Every Meal Makes a Difference</h2>
-        <p>Technology with a purpose. Food with a future.</p>
-
-        <div className="impact-stats">
-          <div><h3>10K+</h3><p>Meals Rescued</p></div>
-          <div><h3>500+</h3><p>Happy Customers</p></div>
-          <div><h3>100+</h3><p>Partner Restaurants</p></div>
-          <div><h3>50+</h3><p>NGOs Supported</p></div>
-        </div>
-      </section>
-    </div>
-  )
+            </Routes>
+        </>
+    );
 }
 
-export default App
+export default App;
